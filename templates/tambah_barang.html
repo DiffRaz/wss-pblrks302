@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warehouse Storage System</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+  <!-- Linking Google Font Link For Icons -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <form id="form-tambah-barang" action="{{ url_for('tambah_barang_route') }}" method="post">
+    <div class="content">
+      <div class="header">
+        <h2>Tambah Barang</h2>
+        <p>Hello, {{username}}</p>
+      </div>
+      <label class="input-Nama-klien">NAMA KLIEN:</label>
+      <input style="padding-left: 130px;" type="text" name="nama_klien" id="nama_klien" required>
+      <label class="input-Nama-Barang">BARANG:</label>
+      <input style="padding-left: 100px;" type="text" name="nama_barang" id="nama_barang" required>
+      <label class="input-Kode-Barang">TANGGAL KELUAR:</label>
+      <input style="padding-left: 180px;" type="date" name="date" id="date" required> 
+  
+      <a href="{{url_for('staff')}}"><button type="button" class="cancel-btn">Cancel</button></a>
+      <a href="{{url_for('tambah_barangg')}}"><button type="submit" class="done-btn">Done</button></a>
+    </div>
+  </form>
+  
+
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <script>
+        // Event listener untuk form submission
+        document.getElementById('form-tambah-barang').addEventListener('submit', function(event) {
+          var namaKlien = document.getElementById('nama_klien').value;
+          var namaBarang = document.getElementById('nama_barang').value;
+          var tanggalKeluar = document.getElementById('date').value;
+          
+          if (!namaKlien || !namaBarang || !tanggalKeluar) {
+            event.preventDefault(); // Mencegah form dikirim jika ada input yang kosong
+            Swal.fire({
+              title: 'Gagal!',
+              text: 'Semua input harus diisi!',
+              icon: 'error',
+              timer: 2000,
+              showCancelButton: false,
+              showConfirmButton: false
+            });
+          }
+        });
+
+        // Menggunakan Flash message dari Flask
+        
+          Swal.fire({
+            title: 'Berhasil!',
+            text: '{{ messages[0] }}',
+            icon: 'success',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+          });
+
+        // Tombol Cancel
+        document.querySelector('.cancel-btn').addEventListener('click', function() {
+          Swal.fire({
+            title: 'Batal!',
+            text: 'Data tidak disimpan!',
+            icon: 'error',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+          });
+        });
+      </script>
+    {% endif %}
+  {% endwith %}
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logopng">
+      <h2>Warehouse Storage 
+        <br>System</h2>
+    </div>
+    
+    <ul class="sidebar-links">
+      <h4>
+        <div class="menu-separator"></div>
+      </h4>
+      <li>
+        <a href="{{ url_for('staff') }}">
+          <img src="{{ url_for('static', filename='images/dashboard.png') }}" alt="Manager Image" width="25" height="25">
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li>
+       <a href="{{ url_for('list_barang', page=1) }}">
+         <img src="{{ url_for('static', filename='images/list.png') }}" alt="Manager Image" width="25" height="25">
+        <span>Item List</span>
+       </a>
+      </li>
+      <li>
+        <a href="{{ url_for('tambah_barangg') }}">
+          <img src="{{ url_for('static', filename='images/add.png') }}" alt="Manager Image" width="25" height="25">
+          <span>Add Item</span>
+        </a>
+      </li>
+      <li>
+        <a href="{{ url_for('logout') }}">
+          <img src="{{ url_for('static', filename='images/logout.png') }}" alt="Manager Image" width="25" height="25">
+          <span>Logout</span>
+        </a>
+      </li>
+    </ul>
+    
+    <div class="user-account">
+      <div class="user-profile">
+        <img src="{{ url_for('static', filename='images/spate.jpg') }}" alt="mona2">
+        <div class="user-detail">
+          <h3>{{username}}</h3>
+          <span>Staff</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+</body>
+</html>

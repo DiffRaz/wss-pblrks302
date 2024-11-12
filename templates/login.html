@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Storage System</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <div class="circles">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="arrow"></div>
+        <div class="arrow2"></div>
+    </div>
+    <form action="{{ url_for('login_route') }}" method="POST">
+        <div class="container">
+            <h2>Login</h2>
+            <select id="userType" name="userType" required>
+                <option value="" disabled selected>Pilih Jenis User</option>
+                <option value="staff">Staff</option>
+                <option value="manager">Manager</option>
+            </select>
+            <input type="text" name="username" placeholder="Username" required>
+            <div class="input-container">
+                <input class="eyeball-input" type="password" name="password" placeholder="Password" required>
+                <i class="fa-eyeball"></i>
+            </div>
+            <button id="loginBtn" type="submit">Login</button>
+        </div>
+    </form>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.all.min.js"></script>
+</body>
+</html>

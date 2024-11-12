@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warehouse Storage System</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <style>
+        body {
+            background-color: #192940;
+            color: white;
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            font-size: 0.8rem;
+            display: block;
+            opacity: 0.7;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0069d9;
+        }
+
+        .circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .circle1 {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            top: 100px;
+            left: 100px;
+            animation: circle-animation1 5s linear infinite;
+        }
+
+        .circle2 {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            animation: circle-animation2 7s linear infinite;
+        }
+
+        .circle3 {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            position: absolute;
+            bottom: 100px;
+            right: 100px;
+            animation: circle-animation3 9s linear infinite;
+        }
+
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 50px solid transparent;
+            border-right: 50px solid transparent;
+            border-bottom: 100px solid white;
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            animation: arrow-animation1 4s linear infinite;
+        }
+
+        .arrow2 {
+            width: 0;
+            height: 0;
+            border-top: 50px solid transparent;
+            border-bottom: 50px solid transparent;
+            border-right: 100px solid white;
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            animation: arrow-animation2 6s linear infinite;
+        }
+
+        @keyframes circle-animation1 {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(10px, -10px);
+            }
+        }
+
+        @keyframes circle-animation2 {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(-10px, 10px);
+            }
+        }
+
+        @keyframes circle-animation3 {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(5px, -5px);
+            }
+        }
+
+        @keyframes arrow-animation1 {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes arrow-animation2 {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(-360deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .title {
+                font-size: 1.8rem;
+            }
+
+            .circle1 {
+                width: 150px;
+                height: 150px;
+                top: 50px;
+                left: 50px;
+            }
+
+            .circle2 {
+                width: 200px;
+                height: 200px;
+                top: 20px;
+                right: 20px;
+            }
+
+            .circle3 {
+                width: 100px;
+                height: 100px;
+                bottom: 50px;
+                right: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="circles">
+        <div class="circle1"></div>
+        <div class="circle2"></div>
+        <div class="circle3"></div>
+        <div class="arrow"></div>
+        <div class="arrow2"></div>
+    </div>
+
+    <div class="container">
+        <div class="logo">
+            WSS<br>
+            <span>PBL-RKS302</span>
+        </div>
+
+        <h1 class="title">WAREHOUSE STORAGE SYSTEM</h1>
+        <a href="{{ url_for('halamanlogin') }}"> <!-- Menggunakan url_for untuk link ke login -->
+            <button class="button" id="signInBtn">SIGN IN</button>
+        </a>
+    </div>
+</body>
+</html>
