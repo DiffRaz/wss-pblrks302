@@ -193,7 +193,40 @@ def add_user():
         return render_template('add_user.html', username=username)
     else:
         return redirect(url_for('halamanlogin'))
+    
+@app.route('/userlist')
+def user_list():
+    user_session = UserSession()
+    if user_session.is_authenticated() and user_session.is_manager():
+        username = user_session.user_data[0]['username']
+        return render_template('user_list.html', username=username)
+    else:
+        return redirect(url_for('halamanlogin'))
+    
+# @app.route('/user_list')
+# def user_list():
+#     user_session = UserSession()
+#     if user_session.is_authenticated() and user_session.is_manager():
+#         db_conn = DatabaseConnection("manager")
+#         db = db_conn.get_connection()
+#         try:
+#             cursor = db.cursor(dictionary=True)
+#             query = "SELECT id, name, email, birth_date, gender, level FROM users"
+#             cursor.execute(query)
+#             user_data = cursor.fetchall()
+#             cursor.close()
 
+#             return render_template(
+#                 'user_list.html',
+#                 username=user_session.user_data[0]['username'],
+#                 user_data=user_data
+#             )
+#         finally:
+#             db.close()
+#     else:
+#         return redirect(url_for('halamanlogin'))
+
+    
 @app.route('/tambah_barang_aksi', methods=['GET', 'POST'])
 def tambah_barang_route():
     user_session = UserSession()

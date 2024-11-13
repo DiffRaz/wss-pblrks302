@@ -3,32 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Warehouse Storage System</title>
+  <title>User List</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
-  <!-- Linking Google Font Link For Icons -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="content">
-      <div class="header">
-        <h2>Dashboard - Manager</h2>
-        <p>Hello, {{username}}</p>
-      </div>
-      <div class="user-info">
-        <img src="{{ url_for('static', filename='images/ppp.svg') }}" alt="mona1">
-        <div>
-          <p><strong>NAME:</strong> {{username}}</p>
-          <p><strong>EMAIL: </strong> {{email}}</p>
-          <p><strong>GENDER: </strong> {{gender}}</p>
-          <p><strong>LEVEL: </strong> {{level}}</p>
-        </div>
-      </div>
+  <div class="content">
+    <div class="header">
+      <h2>User List - Manager</h2>
+      <p>Hello, {{ username }}</p>
     </div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Email Address</th>
+          <th>Birth Date</th>
+          <th>Gender</th>
+          <th>Level</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        <tr>
+          <td>{{ loop.index }}</td>  <!-- Nomor urut -->
+          <td>{{ user.nama }}</td>
+          <td>{{ user.email }}</td>
+          <td>{{ user.birth_date }}</td>
+          <td>{{ user.gender }}</td>
+          <td>{{ user.level }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    
+    <a href="{{url_for('add_user')}}"><button type="button" class="add-btn"> Add User</button></a>
+  </div>
+
   <aside class="sidebar">
     <div class="sidebar-header">
-      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logopng">
+      <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo">
       <h2>Warehouse Storage 
         <br>System</h2>
     </div>
@@ -44,13 +62,13 @@
         </a>
       </li>
       <li>
-       <a href="{{ url_for('list_barang_manager', page=1) }}">
-         <img src="{{ url_for('static', filename='images/list.png') }}" alt="Manager Image" width="25" height="25">
-        <span>Item List</span>
-       </a>
-      </li>
+        <a href="{{ url_for('list_barang_manager', page=1) }}">
+          <img src="{{ url_for('static', filename='images/list.png') }}" alt="Manager Image" width="25" height="25">
+         <span>Item List</span>
+        </a>
+       </li>
       <li>
-        <a href="{{ url_for('user_list') }}">
+        <a href="{{ url_for('user_list')}}">
           <img src="{{ url_for('static', filename='images/userlist.png') }}" alt="Manager Image" width="25" height="25">
           <span>User List</span>
         </a>
@@ -62,12 +80,12 @@
         </a>
       </li>
     </ul>
-    
+
     <div class="user-account">
       <div class="user-profile">
-        <img src="{{ url_for('static', filename='images/manager.jpg') }}" alt="mona2">
+        <img src="{{ url_for('static', filename='images/manager.jpg') }}" alt="user profile">
         <div class="user-detail">
-          <h3>{{username}}</h3>
+          <h3>{{ username }}</h3>
           <span>Manager</span>
         </div>
       </div>

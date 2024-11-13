@@ -18,7 +18,7 @@
 <body>
     <div class="content">
       <div class="header">
-        <h2>Add User</h2>
+        <h2>Add User - Manager</h2>
         <p>Hello, {{username}}</p>
       </div>
     <form action="{{url_for('tambah_user_route')}}" method='POST'>
@@ -132,9 +132,9 @@
        </a>
       </li>
       <li>
-        <a href="{{ url_for('add_user') }}">
-          <img src="{{ url_for('static', filename='images/add.png') }}" alt="Manager Image" width="25" height="25">
-          <span>Add User</span>
+        <a href="{{ url_for('user_list') }}">
+          <img src="{{ url_for('static', filename='images/userlist.png') }}" alt="Manager Image" width="25" height="25">
+          <span>User List</span>
         </a>
       </li>
       <li>
