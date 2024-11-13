@@ -20,28 +20,70 @@
       <thead>
         <tr>
           <th>No</th>
-          <th>Nama</th>
+          <th>Username</th>
           <th>Email Address</th>
-          <th>Birth Date</th>
+          <th>Birthdate</th>
           <th>Gender</th>
           <th>Level</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         {% for user in users %}
         <tr>
           <td>{{ loop.index }}</td>  <!-- Nomor urut -->
-          <td>{{ user.nama }}</td>
+          <td>{{ user.username }}</td>
           <td>{{ user.email }}</td>
-          <td>{{ user.birth_date }}</td>
+          <td>{{ user.date }}</td>
           <td>{{ user.gender }}</td>
           <td>{{ user.level }}</td>
+          <td>
+            <button class="delete-btn" data-id="{{user.id}}">Remove</button>
+        </td> 
         </tr>
         {% endfor %}
       </tbody>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script>
+      document.querySelectorAll('.delete-btn').forEach(function (deleteBtn) {
+        deleteBtn.addEventListener('click', function () {
+          let idUser = this.getAttribute('data-id'); // Ambil ID barang dari atribut data-id
+
+          Swal.fire({
+            title: 'UNSAFE OPERATION AHEAD',
+            html: 'Are you sure you want to remove this user?<br><strong>WARNING! THIS ACTION IS IRREVERSIBLE!</strong>',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, Proceed',
+            cancelButtonText: 'No, Cancel'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              // Kirim permintaan POST dengan body berisi ID barang
+              fetch('/rm_usr', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({ id: idUser })
+              })
+                .then(response => {
+                  console.log('Respons dari server:', response); // Tambahkan ini
+                  if (response.ok) {
+                    Swal.fire('Executed Succesfully', 'success')
+                      .then(() => location.reload());
+                  } else {
+                    Swal.fire('Error', 'Server did not respond properly.', 'error');
+                  }
+                });
+            }
+          });
+        });
+      });
+    </script>
     </table>
-    
     <a href="{{url_for('add_user')}}"><button type="button" class="add-btn"> Add User</button></a>
+    <a href="{{url_for('user_list', page=current_page-1)}}"><button type="submit" class="back-btn">◀ Previous</button></a>
+    <a href="{{url_for('user_list', page=current_page+1)}}"><button type="submit" class="next-btn">Next ▶</button></a>
   </div>
 
   <aside class="sidebar">
@@ -68,7 +110,7 @@
         </a>
        </li>
       <li>
-        <a href="{{ url_for('user_list')}}">
+        <a href="{{ url_for('user_list', page=1)}}">
           <img src="{{ url_for('static', filename='images/userlist.png') }}" alt="Manager Image" width="25" height="25">
           <span>User List</span>
         </a>

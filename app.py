@@ -9,6 +9,7 @@ from terima import asep
 from hapus import hapus
 from list_barang_stok import list_barang_staff
 from hapus2 import hapuus
+from userlist import return_user_list, total_user_list_data, remove_selected_user
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -194,39 +195,39 @@ def add_user():
     else:
         return redirect(url_for('halamanlogin'))
     
-@app.route('/userlist')
-def user_list():
+@app.route('/userlist/<int:page>')
+def user_list(page=1):
     user_session = UserSession()
     if user_session.is_authenticated() and user_session.is_manager():
         username = user_session.user_data[0]['username']
-        return render_template('user_list.html', username=username)
+        limit = 4
+        offset = (page - 1) * limit
+        total_list_user = total_user_list_data()
+        total_pages = (total_list_user + limit - 1) // limit
+        user_list = return_user_list(limit=limit, offset=offset)
+        if page < 1:
+                return redirect(url_for('user_list', page=1))
+        if page > total_pages:
+                return redirect(url_for('user_list', page=total_pages))
+        return render_template('user_list.html',username=username,current_page=page,total_pages=total_pages,start_number=offset + 1,users=user_list)
     else:
         return redirect(url_for('halamanlogin'))
-    
-# @app.route('/user_list')
-# def user_list():
-#     user_session = UserSession()
-#     if user_session.is_authenticated() and user_session.is_manager():
-#         db_conn = DatabaseConnection("manager")
-#         db = db_conn.get_connection()
-#         try:
-#             cursor = db.cursor(dictionary=True)
-#             query = "SELECT id, name, email, birth_date, gender, level FROM users"
-#             cursor.execute(query)
-#             user_data = cursor.fetchall()
-#             cursor.close()
 
-#             return render_template(
-#                 'user_list.html',
-#                 username=user_session.user_data[0]['username'],
-#                 user_data=user_data
-#             )
-#         finally:
-#             db.close()
-#     else:
-#         return redirect(url_for('halamanlogin'))
+@app.route('/rm_usr', methods=["POST", "GET"])
+def remove_user():
+    user_session = UserSession()
+    if user_session.is_authenticated() and user_session.is_manager():
+        data = request.get_json()
+        id_user = data.get('id')
+        try:
+            remove_selected_user(id_user)
+            return jsonify({'status': 'success'}), 200
+        except:
+            return jsonify({'status': 'error'}), 500
+    else:
+        return redirect(url_for('halamanlogin'))
 
-    
+
 @app.route('/tambah_barang_aksi', methods=['GET', 'POST'])
 def tambah_barang_route():
     user_session = UserSession()

@@ -119,8 +119,8 @@
         });
       </script>
       </table>
-      <a href="{{url_for('list_barang_manager', page=current_page-1)}}"><button type="submit" class="back-btn">◀</button></a>
-      <a href="{{url_for('list_barang_manager', page=current_page+1)}}"><button type="submit" class="next-btn">▶</button></a>
+      <a href="{{url_for('list_barang_manager', page=current_page-1)}}"><button type="submit" class="back-btn">◀ Previous</button></a>
+      <a href="{{url_for('list_barang_manager', page=current_page+1)}}"><button type="submit" class="next-btn">Next ▶</button></a>
     </div>
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -146,7 +146,7 @@
        </a>
       </li>
       <li>
-        <a href="{{ url_for('user_list') }}">
+        <a href="{{ url_for('user_list', page=1) }}">
           <img src="{{ url_for('static', filename='images/userlist.png') }}" alt="Manager Image" width="25" height="25">
           <span>User List</span>
         </a>
