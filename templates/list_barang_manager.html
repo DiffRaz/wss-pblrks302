@@ -13,7 +13,7 @@
 <body>
     <div class="content">
       <div class="header">
-        <h2>Item List - Manager</h2>
+        <h2>Item Request List - Manager</h2>
         <p>Hello, {{username}}</p>
       </div>
 
@@ -21,12 +21,12 @@
         <thead>
           <tr>
               <th>No</th>
-              <th>Nama Klien</th>
-              <th>Nama Barang</th>
-              <th>Kode Barang</th>
-              <th>Waktu Masuk</th>
-              <th>Waktu Keluar</th>
-              <th>Aksi</th>
+              <th>Client Name</th>
+              <th>Item Name</th>
+              <th>Item ID</th>
+              <th>Turn-in Date</th>
+              <th>Takeout Date</th>
+              <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -55,12 +55,12 @@
             let idBarang = this.getAttribute('data-id'); // Ambil ID barang dari atribut data-id
     
             Swal.fire({
-              title: 'Terima!',
-              text: 'Apakah Anda yakin ingin menerima permintaan ini?',
+              title: 'ACCEPT',
+              text: 'Are you sure want to accept this request?',
               icon: 'question',
               showCancelButton: true,
-              confirmButtonText: 'Ya, Terima!',
-              cancelButtonText: 'Tidak, Batal!'
+              confirmButtonText: 'Yes, Proceed',
+              cancelButtonText: 'No, Cancel'
             }).then((result) => {
               if (result.isConfirmed) {
                 // Kirim permintaan POST dengan body berisi ID barang
@@ -73,10 +73,10 @@
                 })
                   .then(response => {
                     if (response.ok) {
-                      Swal.fire('Permintaan Diterima!', '', 'success')
+                      Swal.fire('ACCEPT', 'You accepted this request.', 'success')
                         .then(() => location.reload()); // Reload halaman setelah sukses
                     } else {
-                      Swal.fire('Error', 'Gagal menerima permintaan', 'error');
+                      Swal.fire('ERROR', 'Server did not respond properly.', 'error');
                     }
                   });
               }
@@ -89,12 +89,12 @@
             let idBarang = this.getAttribute('data-id'); // Ambil ID barang dari atribut data-id
     
             Swal.fire({
-              title: 'Hapus!',
-              text: 'Apakah Anda yakin ingin menghapus barang ini?',
+              title: 'DECLINE',
+              text: 'Are you sure want to decline this request?',
               icon: 'question',
               showCancelButton: true,
-              confirmButtonText: 'Ya, Terima!',
-              cancelButtonText: 'Tidak, Batal!'
+              confirmButtonText: 'Yes, Proceed',
+              cancelButtonText: 'No, Cancel'
             }).then((result) => {
               if (result.isConfirmed) {
                 // Kirim permintaan POST dengan body berisi ID barang
@@ -107,10 +107,10 @@
                 })
                   .then(response => {
                     if (response.ok) {
-                      Swal.fire('Permintaan Diterima!', '', 'success')
+                      Swal.fire('DECLINE', 'You declined this request.', 'success')
                         .then(() => location.reload()); // Reload halaman setelah sukses
                     } else {
-                      Swal.fire('Error', 'Gagal menerima permintaan', 'error');
+                      Swal.fire('ERROR', 'Server did not respond properly.', 'error');
                     }
                   });
               }

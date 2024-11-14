@@ -18,19 +18,17 @@
         <h2>Add Item - Staff</h2>
         <p>Hello, {{username}}</p>
       </div>
-      <label class="input-Nama-klien">NAMA KLIEN:</label>
-      <input style="padding-left: 130px;" type="text" name="nama_klien" id="nama_klien" required>
-      <label class="input-Nama-Barang">BARANG:</label>
-      <input style="padding-left: 100px;" type="text" name="nama_barang" id="nama_barang" required>
-      <label class="input-Kode-Barang">TANGGAL KELUAR:</label>
-      <input style="padding-left: 180px;" type="date" name="date" id="date" required> 
+      <label class="input-Nama-klien">CLIENT NAME:</label>
+      <input style="padding-left: 140px;" type="text" name="nama_klien" id="nama_klien" required>
+      <label class="input-Nama-Barang"><br>ITEM NAME:</label>
+      <input style="padding-left: 120px;" type="text" name="nama_barang" id="nama_barang" required>
+      <label class="input-Kode-Barang">TAKEOUT DATE:</label>
+      <input style="padding-left: 155px;" type="date" name="date" id="date" required>
   
       <a href="{{url_for('staff')}}"><button type="button" class="cancel-btn">Cancel</button></a>
       <a href="{{url_for('tambah_barangg')}}"><button type="submit" class="done-btn">Done</button></a>
     </div>
   </form>
-  
-
   {% with messages = get_flashed_messages() %}
     {% if messages %}
       <script>
@@ -43,8 +41,8 @@
           if (!namaKlien || !namaBarang || !tanggalKeluar) {
             event.preventDefault(); // Mencegah form dikirim jika ada input yang kosong
             Swal.fire({
-              title: 'Gagal!',
-              text: 'Semua input harus diisi!',
+              title: 'FAILED',
+              text: 'Every input field must be filled.',
               icon: 'error',
               timer: 2000,
               showCancelButton: false,
@@ -56,7 +54,7 @@
         // Menggunakan Flash message dari Flask
         
           Swal.fire({
-            title: 'Berhasil!',
+            title: 'SUCCESS',
             text: '{{ messages[0] }}',
             icon: 'success',
             timer: 2000,
@@ -67,9 +65,9 @@
         // Tombol Cancel
         document.querySelector('.cancel-btn').addEventListener('click', function() {
           Swal.fire({
-            title: 'Batal!',
-            text: 'Data tidak disimpan!',
-            icon: 'error',
+            title: 'CANCELLED',
+            text: 'Data is discarded.',
+            icon: 'info',
             timer: 2000,
             showCancelButton: false,
             showConfirmButton: false
