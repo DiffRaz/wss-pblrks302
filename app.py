@@ -115,7 +115,9 @@ def manager():
             username=user_data['username'],
             email=user_data['email'],
             gender=user_data['gender'],
-            level=user_data['level']
+            level=user_data['level'],
+            iduser=user_data['id']
+
         )
     else:
         return redirect(url_for('halamanlogin'))
@@ -200,6 +202,7 @@ def user_list(page=1):
     user_session = UserSession()
     if user_session.is_authenticated() and user_session.is_manager():
         username = user_session.user_data[0]['username']
+        iduser = user_session.user_data[0]['id']
         limit = 4
         offset = (page - 1) * limit
         total_list_user = total_user_list_data()
@@ -209,7 +212,7 @@ def user_list(page=1):
                 return redirect(url_for('user_list', page=1))
         if page > total_pages:
                 return redirect(url_for('user_list', page=total_pages))
-        return render_template('user_list.html',username=username,current_page=page,total_pages=total_pages,start_number=offset + 1,users=user_list)
+        return render_template('user_list.html',username=username, iduser=iduser, current_page=page,total_pages=total_pages,start_number=offset + 1,users=user_list)
     else:
         return redirect(url_for('halamanlogin'))
 

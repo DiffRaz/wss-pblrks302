@@ -30,6 +30,7 @@
       </thead>
       <tbody>
         {% for user in users %}
+        {% if user.id != iduser %}  <!-- Tambahkan kondisi ini -->
         <tr>
           <td>{{ loop.index }}</td>  <!-- Nomor urut -->
           <td>{{ user.username }}</td>
@@ -38,11 +39,13 @@
           <td>{{ user.gender }}</td>
           <td>{{ user.level }}</td>
           <td>
-            <button class="delete-btn" data-id="{{user.id}}">Remove User</button>
-        </td> 
+            <button class="delete-btn" data-id="{{ user.id }}">Remove User</button>
+          </td>
         </tr>
+        {% endif %}
         {% endfor %}
       </tbody>
+      
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script>
       document.querySelectorAll('.delete-btn').forEach(function (deleteBtn) {
