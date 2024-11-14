@@ -209,7 +209,7 @@ def user_list(page=1):
                 return redirect(url_for('user_list', page=1))
         if page > total_pages:
                 return redirect(url_for('user_list', page=total_pages))
-        return render_template('user_list.html',username=username,current_page=page,total_pages=total_pages,start_number=offset + 1,users=user_list)
+        return render_template('user_list.html',username=username,current_page=page,total_pages=total_pages,start_number=offset + 1,users=user_list)    
     else:
         return redirect(url_for('halamanlogin'))
 
