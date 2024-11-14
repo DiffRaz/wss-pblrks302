@@ -16,19 +16,17 @@ body {
 
 form {
   padding: 50px;
-  background: #fff;
+  background: #ffffff;
   max-width: 800px;
   width: 100%;
-  margin-left: 275px;
-  border-radius: 7px;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  margin-left: 85px;
 }
 
 form h2 {
-  font-size: 30px;
+  font-size: 20px;
   text-align: center;
-  padding: 17px;
-  margin: 0px 0 30px;
+  padding: 0px;
+  margin: 0px 0px 0px;
 }
 
 form .form-group {
@@ -90,21 +88,21 @@ form .password i {
 
 form .form-group.gender {
   display: flex;
-  align-items: center;
-  gap: 20px; /* Jarak antara label dan radio button */
+  flex-direction: column;
 }
 form .form-group.level {
   display: flex;
-  align-items: center;
-  gap: 20px; /* Jarak antara label dan radio button */
+  flex-direction: column;
 }
 
 form .form-group.gender label {
+  display: inline-block;
   margin-right: 10px; /* Jarak antara radio button dan label */
   font-size: 14px; /* Ukuran font lebih kecil */
 }
 
 form .form-group.level label {
+  display: inline-block;
   margin-right: 10px; /* Jarak antara radio button dan label */
   font-size: 14px; /* Ukuran font lebih kecil */
 }
@@ -113,6 +111,14 @@ form .form-group.gender input[type="radio"] {
   width: 15px; /* Lebar radio button */
   height: 15px; /* Tinggi radio button */
   margin-right: 5px; /* Jarak antara radio button dan label */
+  vertical-align: middle;
+}
+
+form .form-group.level input[type="radio"] {
+  width: 15px; /* Lebar radio button */
+  height: 15px; /* Tinggi radio button */
+  margin-right: 5px; /* Jarak antara radio button dan label */
+  vertical-align: middle;
 }
 
 .fa-eye {
