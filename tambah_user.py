@@ -1,9 +1,7 @@
 from flask import request, redirect, url_for, flash, session
 import mysql.connector
 import html
-import random
-import datetime
-import string
+from time import sleep
 import hashlib
 
 # Database connection
@@ -25,7 +23,6 @@ def tambah_usr():
 
         # Validasi input
         if not username or not email or not password or not date or not gender or not level:
-            flash('Semua input harus diisi.')
             return redirect(url_for('add_user'))
         
         hashed_password = hashlib.md5(password.encode()).hexdigest()
@@ -47,10 +44,8 @@ def tambah_usr():
             db.commit()  # Simpan perubahan ke database
         except mysql.connector.Error as err:
             print(f"Error: {err}")
-            flash('Data tidak dapat disimpan. Silakan coba lagi.')
         finally:
             cursor.close()
             db.close()  # Tutup koneksi setelah operasi
-        return redirect(url_for('add_user'))
-
+    sleep(2)
     return redirect(url_for('add_user'))

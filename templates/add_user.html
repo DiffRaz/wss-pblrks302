@@ -6,10 +6,9 @@
   <title>Warehouse Storage System</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
   <link rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;600&display=swap" />
-  <!-- Linking Google Font Link For Icons -->
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400;600&display=swap" />
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style1.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
@@ -21,7 +20,7 @@
         <h2>Add New User - Manager</h2>
         <p>Hello, {{username}}</p>
       </div>
-    <form action="{{url_for('tambah_user_route')}}" method='POST'>
+    <form id='form-tambah-user' action="{{url_for('tambah_user_route')}}" method='POST'>
       <h2>User Registration</h2>
       <div class="form-group fullname">
         <label for="fullname">Username</label>
@@ -62,50 +61,6 @@
         <input type="submit" value="Submit">
       </div>
     </form>
-
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-    <script>
-
-        // Event listener untuk form submission
-        document.getElementById('form-tambah-barang').addEventListener('submit', function(event) {
-          var username = document.getElementById('username').value;
-          var email = document.getElementById('email').value;
-          var password = document.getElementById('password').value;
-          var date = document.getElementById('date').value;
-          var gender = document.getElementById('gender').value;
-          var level = document.getElementById('level').value;
-          
-          if (!username || !email || !password || !date || !gender || !level) {
-            event.preventDefault(); // Mencegah form dikirim jika ada input yang kosong
-            Swal.fire({
-              title: 'Gagal!',
-              text: 'Semua input harus diisi!',
-              icon: 'error',
-              timer: 2000,
-              showCancelButton: false,
-              showConfirmButton: false
-            });
-          }
-        });
-
-        // Menggunakan Flash message dari Flask
-        
-          Swal.fire({
-            title: 'Berhasil!',
-            text: '{{ messages[0] }}',
-            icon: 'success',
-            timer: 2000,
-            showCancelButton: false,
-            showConfirmButton: false
-          });
-      </script>
-  {% endif %}
-{% endwith %}
-
-  </body>
-</html>
     </div>
   <aside class="sidebar">
     <div class="sidebar-header">
@@ -155,4 +110,45 @@
     </div>
   </aside>
 </body>
+<script>
+  const passwordInput = document.getElementById('password');
+  const passToggleBtn = document.getElementById('pass-toggle-btn');
+  // Toggling password visibility
+  passToggleBtn.addEventListener('click', () => {
+    // Toggle type of password input
+    passwordInput.type = passwordInput.type === "password" ? "text" : "password";
+    // Toggle class for the icon
+    passToggleBtn.className = passwordInput.type === "password" ? "fa-solid fa-eye" : "fa-solid fa-eye-slash";
+  });
+  // Event listener for form submission
+  document.getElementById('form-tambah-user').addEventListener('submit', function(event) {
+    var username = document.getElementById('username').value;
+    var email = document.getElementById('email').value;
+    var password = document.getElementById('password').value;
+    var date = document.getElementById('date').value;
+    var gender = document.querySelector('input[name="gendertype"]:checked');
+    var level = document.querySelector('input[name="level"]:checked');
+          
+    if (!username || !email || !password || !date || !gender || !level) {
+      event.preventDefault();
+      Swal.fire({
+        title: 'FAILED',
+        text: 'All inputs must be filled.',
+        icon: 'error',
+        timer: 2000,
+        showCancelButton: false,
+        showConfirmButton: false
+      });
+    } else {
+      Swal.fire({
+        title: 'Success!',
+        text: 'User added successfully!',
+        icon: 'success',
+        timer: 2000,
+        showCancelButton: false,
+        showConfirmButton: false
+      });
+    }
+  });
+</script>
 </html>

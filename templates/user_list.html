@@ -72,7 +72,7 @@
                 .then(response => {
                   console.log('Respons dari server:', response); // Tambahkan ini
                   if (response.ok) {
-                    Swal.fire('REMOVE USER','User have been removed.', 'success')
+                    Swal.fire('REMOVED','User have been removed.', 'success')
                       .then(() => location.reload());
                   } else {
                     Swal.fire('Error', 'Server did not respond properly.', 'error');

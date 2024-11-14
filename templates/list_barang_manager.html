@@ -73,7 +73,7 @@
                 })
                   .then(response => {
                     if (response.ok) {
-                      Swal.fire('ACCEPT', 'You accepted this request.', 'success')
+                      Swal.fire('ACCEPTED', 'You accepted this request.', 'success')
                         .then(() => location.reload()); // Reload halaman setelah sukses
                     } else {
                       Swal.fire('ERROR', 'Server did not respond properly.', 'error');
@@ -107,7 +107,7 @@
                 })
                   .then(response => {
                     if (response.ok) {
-                      Swal.fire('DECLINE', 'You declined this request.', 'success')
+                      Swal.fire('DECLINED', 'You declined this request.', 'success')
                         .then(() => location.reload()); // Reload halaman setelah sukses
                     } else {
                       Swal.fire('ERROR', 'Server did not respond properly.', 'error');
