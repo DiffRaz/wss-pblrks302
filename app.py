@@ -84,6 +84,7 @@ class BarangStaff:
 # Routes
 @app.route('/')
 def sign_in():
+    UserSession().clear_session()
     return render_template("sign_in.html")
 
 @app.route('/halamanlogin')

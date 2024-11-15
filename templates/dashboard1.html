@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Warehouse Storage System</title>
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/logo.jpg') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png') }}">
   <!-- Linking Google Font Link For Icons -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -18,12 +18,24 @@
       </div>
       <div class="user-info">
         <img src="{{ url_for('static', filename='images/ppp.svg') }}" alt="mona1">
-        <div>
-          <p><strong>NAME           :</strong> {{username}}</p>
-          <p><strong>EMAIL          : </strong> {{email}}</p>
-          <p><strong>GENDER         : </strong> {{gender}}</p>
-          <p><strong>LEVEL          : </strong> {{level}}</p>
-        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+          <div style="display: flex; justify-content: space-between;">
+              <strong>NAME:</strong>
+              <span>{{username}}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+              <strong>EMAIL:</strong>
+              <span>{{email}}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+              <strong>GENDER:</strong>
+              <span>{{gender}}</span>
+          </div>
+          <div style="display: flex; justify-content: space-between;">
+              <strong>LEVEL:</strong>
+              <span>{{level}}</span>
+          </div>
+      </div>
       </div>
     </div>
   <aside class="sidebar">
