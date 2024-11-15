@@ -15,7 +15,7 @@
   <form id="form-tambah-barang" action="{{ url_for('tambah_barang_route') }}" method="post">
     <div class="content">
       <div class="header">
-        <h2>Add Item - Staff</h2>
+        <h2>Add Item Request Form - Staff</h2>
         <p>Hello, {{username}}</p>
       </div>
       <label class="input-Nama-klien">CLIENT NAME:</label>
@@ -26,7 +26,7 @@
       <input style="padding-left: 155px;" type="date" name="date" id="date" required>
   
       <a href="{{url_for('staff')}}"><button type="button" class="cancel-btn">Cancel</button></a>
-      <a href="{{url_for('tambah_barangg')}}"><button type="submit" class="done-btn">Done</button></a>
+      <a href="{{url_for('tambah_barangg')}}"><button type="submit" class="done-btn">Submit</button></a>
     </div>
   </form>
   {% with messages = get_flashed_messages() %}
@@ -52,14 +52,14 @@
         });
 
         // Menggunakan Flash message dari Flask
+        const messages = "{{ get_flashed_messages()[0]|safe }}";
         
           Swal.fire({
             title: 'SUCCESS',
-            text: '{{ messages[0] }}',
+            html: messages,
             icon: 'success',
-            timer: 2000,
             showCancelButton: false,
-            showConfirmButton: false
+            showConfirmButton: true
           });
 
         // Tombol Cancel

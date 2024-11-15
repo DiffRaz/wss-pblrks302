@@ -235,7 +235,7 @@ def remove_user():
 def tambah_barang_route():
     user_session = UserSession()
     if user_session.is_authenticated() and user_session.is_staff():
-        flash('Data berhasil disimpan')
+        flash('Your item request has been submitted.<br><br><strong><em>Please wait for an approval from a manager.</em></strong>')
         return tambah_brg()  
     else:
         return redirect(url_for('halamanlogin'))
@@ -331,7 +331,6 @@ def apus():
         id_barang = data.get('id')
 
         if BarangStaff(DatabaseConnection("staff")).hapus_barang(id_barang):
-            flash('Barang berhasil dihapus.')
             return jsonify({'status': 'success'}), 200
         else:
             flash('Terjadi kesalahan saat memproses data.')

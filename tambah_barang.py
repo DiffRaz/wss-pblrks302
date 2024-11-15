@@ -38,8 +38,7 @@ def tambah_brg():
                 (nama_kilen, nama_barang, kode_barang, waktu_masuk, waktu_keluar)
             )
             db.commit()  # Simpan perubahan ke database
-            flash('Data berhasil disimpan.')
-            return redirect(url_for('tambah_barangg'))  # Redirect ke list_barang_manager setelah menambah barang
+            return redirect(url_for('tambah_barangg'))  # Redirect ke list_barang_staff setelah menambah barang
         except mysql.connector.Error as err:
             print(f"Error: {err}")
             flash('Data tidak dapat disimpan. Silakan coba lagi.')
