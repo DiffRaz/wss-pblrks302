@@ -116,7 +116,7 @@
                 })
                   .then(response => {
                     if (response.ok) {
-                      Swal.fire('DECLINED', 'You declined this request.', 'success')
+                      Swal.fire('DECLINED/DELETE', 'You declined/DELETE this request.', 'success')
                         .then(() => location.reload()); // Reload halaman setelah sukses
                     } else {
                       Swal.fire('ERROR', 'Server did not respond properly.', 'error');
