@@ -26,6 +26,7 @@
               <th>Item ID</th>
               <th>Turn-in Date</th>
               <th>Takeout Date</th>
+              <th>Status</th>
               <th>Action</th>
           </tr>
         </thead>
@@ -39,10 +40,18 @@
             <td>{{ item.kode_barang }}</td>
             <td>{{ item.waktu_masuk }}</td>
             <td>{{ item.waktu_keluar }}</td>
+            <td>{{ item.status }}</td>
+            {% if item.status == 'Belum diterima' %}
             <td>
                 <button class="accept-btn" data-id="{{ item.id }}">Accept</button>
                 <button class="decline-btn" data-id="{{item.id}}">Decline</button>
             </td> 
+            {% endif %}
+            {% if item.status != 'Belum diterima' %}
+            <td>
+              <button class="decline-btn" data-id="{{item.id}}">Delete</button>
+            </td> 
+            {% endif %}
           </tr>
           {% endfor %}
       </tbody>
@@ -89,8 +98,8 @@
             let idBarang = this.getAttribute('data-id'); // Ambil ID barang dari atribut data-id
     
             Swal.fire({
-              title: 'DECLINE',
-              text: 'Are you sure want to decline this request?',
+              title: 'DECLINE/DELETE',
+              text: 'Are you sure want to decline/delete this request?',
               icon: 'question',
               showCancelButton: true,
               confirmButtonText: 'Yes, Proceed',

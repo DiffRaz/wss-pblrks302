@@ -16,7 +16,7 @@ def asep(id):
         """, (id,))
 
         # Hapus data dari tabel sementara
-        cursor.execute("DELETE FROM list_barang_sementara WHERE id = %s", (id,))
+        cursor.execute("UPDATE list_barang_sementara SET status = 'Sudah diterima' WHERE id = %s", (id,))
 
         db.commit()
         return True

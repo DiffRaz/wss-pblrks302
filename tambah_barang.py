@@ -30,12 +30,14 @@ def tambah_brg():
 
         waktu_masuk = datetime.datetime.now().strftime("%Y-%m-%d")
 
+        Status = "Belum diterima"
+
         cursor = db.cursor(dictionary=True)
 
         try:
             cursor.execute(
-                "INSERT INTO list_barang_sementara (nama_klien, nama_barang, kode_barang, waktu_masuk, waktu_keluar) VALUES (%s, %s, %s, %s, %s)", 
-                (nama_kilen, nama_barang, kode_barang, waktu_masuk, waktu_keluar)
+                "INSERT INTO list_barang_sementara (nama_klien, nama_barang, kode_barang, waktu_masuk, waktu_keluar, status) VALUES (%s, %s, %s, %s, %s, %s)", 
+                (nama_kilen, nama_barang, kode_barang, waktu_masuk, waktu_keluar, Status)
             )
             db.commit()  # Simpan perubahan ke database
             return redirect(url_for('tambah_barangg'))  # Redirect ke list_barang_staff setelah menambah barang
