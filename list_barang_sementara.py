@@ -11,12 +11,12 @@ def get_db_connection():
         database='pbl302'
     )
 
-def list_data_sementara(limit, offset):
+def list_data_sementara():
     db = get_db_connection()
     cursor = db.cursor(dictionary=True)
     try:
-        query = "SELECT * FROM list_barang_sementara ORDER BY id DESC LIMIT %s OFFSET %s"
-        cursor.execute(query, (limit, offset))
+        query = "SELECT * FROM list_barang_sementara"
+        cursor.execute(query)
         data_barang = cursor.fetchall()
         return data_barang
     except Exception as e:

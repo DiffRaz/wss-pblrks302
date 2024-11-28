@@ -21,10 +21,10 @@ def total_user_list_data():
         cursor.close()
         db.close()
 
-def return_user_list(limit, offset):
+def return_user_list():
     db = initiate_mysql_login_user_conn()
     cursor = db.cursor(dictionary=True)
-    query = f"SELECT id, username, email, date, gender, level FROM pbl302.login LIMIT {limit} OFFSET {offset}"
+    query = f"SELECT id, username, email, date, gender, level FROM pbl302.login"
     try:
         cursor.execute(query)
         user_list_dict = cursor.fetchall()

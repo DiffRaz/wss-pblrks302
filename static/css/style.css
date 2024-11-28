@@ -14,6 +14,17 @@ body {
   background: #fff;
 }
 
+.datatable-container {
+  flex: 1; /* Take up remaining space */
+  padding: 0px 15px 0px 100px;
+  overflow-x: auto; /* Ensure horizontal scroll if needed */
+}
+
+.datatable-container table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
 .sidebar {
   position: fixed;
   top: 0;

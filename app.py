@@ -61,8 +61,8 @@ class BarangManager:
     def __init__(self, db_connection):
         self.db_connection = db_connection
 
-    def list_barang(self, limit, offset):
-        return list_data_sementara(limit, offset)
+    def list_barang(self):
+        return list_data_sementara()
 
     def accept_barang(self, id_barang):
         return asep(id_barang)
@@ -75,8 +75,8 @@ class BarangStaff:
     def __init__(self, db_connection):
         self.db_connection = db_connection
 
-    def list_barang(self, limit, offset):
-        return list_barang_staff(limit, offset)
+    def list_barang(self):
+        return list_barang_staff()
 
     def hapus_barang(self, id_barang):
         return hapuus(id_barang)
@@ -146,34 +146,27 @@ def list_barang(page=1):
         db = db_conn.get_connection()
         try:
             barang = BarangStaff(db)
-            limit = 4
             if page < 1:
                 return redirect(url_for('list_barang', page=1))
         
-            offset = (page - 1) * limit
-            data_barang = barang.list_barang(limit, offset)
+            data_barang = barang.list_barang()
             
             cursor = db.cursor()
             cursor.execute("SELECT COUNT(*) FROM list_barang")
             total_data = cursor.fetchone()[0]
-            total_pages = (total_data + limit - 1) // limit  # Hitung total halaman
             cursor.close()
 
             # Jika tidak ada barang, arahkan ke halaman pertama dan tetap render list_barang.html
             if total_data == 0:
                 return render_template('list_barang.html', username=user_session.user_data[0]['username'], data_barang=[], current_page=1, total_pages=1, start_number=0)
 
-            # Jika page > total_pages, arahkan ke halaman terakhir
-            if page > total_pages:
-                return redirect(url_for('list_barang', page=total_pages))
 
             return render_template(
                 'list_barang.html',
                 data_barang=data_barang,
                 current_page=page,
                 username=user_session.user_data[0]['username'],
-                total_pages=total_pages,
-                start_number=offset + 1
+                start_number=1
             )
         finally:
             db.close()
@@ -204,16 +197,11 @@ def user_list(page=1):
     if user_session.is_authenticated() and user_session.is_manager():
         username = user_session.user_data[0]['username']
         iduser = user_session.user_data[0]['id']
-        limit = 4
-        offset = (page - 1) * limit
         total_list_user = total_user_list_data()
-        total_pages = (total_list_user + limit - 1) // limit
-        user_list = return_user_list(limit=limit, offset=offset)
+        user_list = return_user_list()
         if page < 1:
                 return redirect(url_for('user_list', page=1))
-        if page > total_pages:
-                return redirect(url_for('user_list', page=total_pages))
-        return render_template('user_list.html',username=username, iduser=iduser, current_page=page,total_pages=total_pages,start_number=offset + 1,users=user_list)
+        return render_template('user_list.html',username=username, iduser=iduser, current_page=page,users=user_list)
     else:
         return redirect(url_for('halamanlogin'))
 
@@ -257,35 +245,25 @@ def list_barang_manager(page=1):
         db = db_conn.get_connection()
         try:
             barang = BarangManager(db)
-            limit = 4
             if page < 1:
                 return redirect(url_for('list_barang_manager', page=1))
             
-            offset = (page - 1) * limit
-            data_barang = barang.list_barang(limit, offset)
+            data_barang = barang.list_barang()
 
             cursor = db.cursor()
             cursor.execute("SELECT COUNT(*) FROM list_barang_sementara")
             total_data = cursor.fetchone()[0]
-            total_pages = (total_data + limit - 1) // limit  # Hitung total halaman
             cursor.close()
 
             # Jika tidak ada barang, arahkan ke halaman pertama dan tetap render list_barang_manager.html
             if total_data == 0:
                 return render_template('list_barang_manager.html', username=user_session.user_data[0]['username'], data_barang=[], current_page=1, total_pages=1, start_number=0)
 
-            # Jika page > total_pages, arahkan ke halaman terakhir
-            if page > total_pages:
-                return redirect(url_for('list_barang_manager', page=total_pages))
-
-
             return render_template(
                 'list_barang_manager.html',
                 data_barang=data_barang,
                 current_page=page,
                 username=user_session.user_data[0]['username'],
-                total_pages=total_pages,
-                start_number=offset + 1
             )
         finally:
             db.close()
