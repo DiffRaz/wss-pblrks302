@@ -12,15 +12,10 @@ from hapus2 import hapuus
 from userlist import return_user_list, total_user_list_data, remove_selected_user, tampil_profile
 from edit_profile import edit_profil
 import hashlib
-from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
 
-# Mengatur waktu kedaluwarsa sesi menjadi 30 menit
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
-
-# Class untuk koneksi database
 # Class untuk koneksi database
 class DatabaseConnection:
     def __init__(self, user_type):
@@ -46,7 +41,6 @@ class DatabaseConnection:
             raise ValueError("User type tidak valid untuk koneksi database")
 
 # Class untuk manajemen session pengguna
-# Class untuk manajemen session pengguna
 class UserSession:
     def __init__(self):
         self.user_data = session.get('user_data')
@@ -63,7 +57,6 @@ class UserSession:
 
     def clear_session(self):
         session.clear()
-
 
 # Class untuk operasi barang bagi manager
 class BarangManager:
@@ -95,6 +88,11 @@ class BarangStaff:
 def sign_in():
     UserSession().clear_session()
     return render_template("sign_in.html")
+
+@app.route('/halamanlogin')
+def halamanlogin():
+    UserSession().clear_session()
+    return render_template("login.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_route():
