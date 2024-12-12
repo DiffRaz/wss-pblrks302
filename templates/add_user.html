@@ -110,6 +110,18 @@
     </div>
   </aside>
 </body>
+{% if username_exists %}
+    <script>
+        Swal.fire({
+              title: 'CANCELLED',
+              text: 'Username yang dimasukkan telah tersedia.',
+              icon: 'info',
+              timer: 2000,
+              showCancelButton: false,
+              showConfirmButton: false
+          });
+    </script>
+{% endif %}
 <script>
   const passwordInput = document.getElementById('password');
   const passToggleBtn = document.getElementById('pass-toggle-btn');
@@ -139,16 +151,21 @@
         showCancelButton: false,
         showConfirmButton: false
       });
-    } else {
-      Swal.fire({
-        title: 'Success!',
-        text: 'User added successfully!',
-        icon: 'success',
-        timer: 2000,
-        showCancelButton: false,
-        showConfirmButton: false
-      });
     }
   });
 </script>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <script>
+        Swal.fire({
+          title: 'Success!',
+          text: 'User added successfully!',
+          icon: 'success',
+          timer: 2000,
+          showCancelButton: false,
+          showConfirmButton: false
+        });
+      </script>
+    {% endif %}
+{% endwith %}
 </html>

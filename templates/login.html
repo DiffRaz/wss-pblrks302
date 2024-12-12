@@ -18,11 +18,6 @@
     <form action="{{ url_for('login_route') }}" method="POST">
         <div class="container">
             <h2>Login</h2>
-            <select id="userType" name="userType" required>
-                <option value="" disabled selected>Select User Type</option>
-                <option value="staff">Staff</option>
-                <option value="manager">Manager</option>
-            </select>
             <input type="text" name="username" placeholder="Username" required>
             <div class="input-container">
                 <input class="eyeball-input" type="password" name="password" placeholder="Password" required>
@@ -33,4 +28,68 @@
     </form>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.all.min.js"></script>
 </body>
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        {% if message == "Username, password are required!" %}
+        <script>
+            Swal.fire({
+            title: 'GAGAL!',
+            text: 'KOK GA DIISI?',
+            icon: 'error',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+            });
+        </script>
+        {% endif %}
+        {% if message == "Login successful! Welcome, Manager." %}
+        <script>
+            Swal.fire({
+            title: 'BERHASIL',
+            text: 'Login successful! Welcome, Manager',
+            icon: 'success',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+            });
+        </script>
+        {% endif %}
+        {% if message == "Login successful! Welcome, Staff." %}
+        <script>
+            Swal.fire({
+            title: 'BERHASIL',
+            text: 'Login successful! Welcome, Staff',
+            icon: 'success',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+            });
+        </script>
+        {% endif %}
+        {% if message == "User level not recognized." %}
+        <script>
+            Swal.fire({
+            title: 'GAGAL!',
+            text: 'LEVEL GA ADA',
+            icon: 'error',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+            });
+        </script>
+        {% endif %}
+        {% if message == "Invalid username or password!" %}
+        <script>
+            Swal.fire({
+            title: 'GAGAL!',
+            text: 'KAYAKNYA USERNAME ATAU PASSWORDNYA SALAH',
+            icon: 'error',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+            });
+        </script>
+        {% endif %}
+    {% endfor %}
+{% endwith %}
 </html>

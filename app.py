@@ -9,7 +9,9 @@ from terima import asep
 from hapus import hapus
 from list_barang_stok import list_barang_staff
 from hapus2 import hapuus
-from userlist import return_user_list, total_user_list_data, remove_selected_user
+from userlist import return_user_list, total_user_list_data, remove_selected_user, tampil_profile
+from edit_profile import edit_profil
+import hashlib
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
@@ -316,6 +318,81 @@ def apus():
             return jsonify({'status': 'error'}), 500
     else:
         return redirect(url_for('halamanlogin'))
+    
+@app.route('/edit_profil')
+def edit_profil():
+    user_session = UserSession()
+    if user_session.is_authenticated():
+        username = user_session.user_data[0]['username']
+        iduser = user_session.user_data[0]['id']
+        level = user_session.user_data[0]['level']
+        profil = tampil_profile(iduser)
+        if level == "manager" :
+            return render_template('edit_profil2.html', username=username, profil=profil, idusr=iduser)
+        else :
+            return render_template('edit_profil.html', username=username, profil=profil, idusr=iduser)
+    else:
+        return redirect(url_for('halamanlogin'))
+    
+@app.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile_route():
+    user_session = UserSession()
+    if not user_session.is_authenticated():
+        return redirect(url_for('halamanlogin'))
+    
+    # Ambil data dari formulir
+    user_id = user_session.user_data[0]['id']
+    user_level = user_session.user_data[0]['level']
+    email = request.form.get('email', '').strip()
+    password = request.form.get('password', '').strip()
+    confirm = request.form.get('confirm', '').strip()
+    date = request.form.get('date', '').strip()
+
+    # Validasi input kosong
+    if not email or not password or not confirm or not date:
+        flash('Semua kolom harus diisi.', 'error')
+        return redirect(url_for('edit_profile_route'))
+
+    # Validasi format email sederhana
+    import re
+    email_pattern = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
+    if not re.match(email_pattern, email):
+        flash('Alamat email tidak valid.', 'error')
+        return redirect(url_for('edit_profile_route'))
+    
+    # Validasi password dan confirm password
+    if password != confirm:
+        flash('Password dan konfirmasi tidak cocok.', 'error')
+        return redirect(url_for('edit_profile_route'))
+    
+    # Enkripsi password
+    hashed_password = hashlib.md5(password.encode()).hexdigest()
+
+    # Koneksi ke database
+    db = mysql.connector.connect(
+        host='localhost',
+        user='login',
+        password='2c8b5C]Z*Na1o*VQ',
+        database='pbl302'
+    )
+    cursor = db.cursor(dictionary=True)
+
+    # Update profil
+    try:
+        cursor.execute(
+            "UPDATE login SET email=%s, password=%s, date=%s WHERE id=%s",
+            (email, hashed_password, date, user_id)
+        )
+        db.commit()
+        flash('Profil berhasil diperbarui.', 'success')
+    except Exception as e:
+        db.rollback()
+        flash(f'Gagal memperbarui profil: {str(e)}', 'error')
+    finally:
+        cursor.close()
+        db.close()
+
+    return redirect(url_for(user_level))
 
 if __name__ == '__main__':
     app.run(debug=True, port=8080)

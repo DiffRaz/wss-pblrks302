@@ -15,10 +15,10 @@ def login():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        user_type = request.form.get('userType')
+        
 
-        if not username or not password or not user_type:
-            flash('Username, password, and user type are required!')
+        if not username or not password :
+            flash('Username and password are required!', 'error')
             return redirect(url_for('halamanlogin'))
 
         # Hash the password using md5 for comparison
@@ -34,22 +34,24 @@ def login():
             )
             cursor = db.cursor(dictionary=True)
 
-            cursor.execute("SELECT * FROM login WHERE username = %s AND password = %s AND level = %s", (username, hashed_password, user_type))
+            cursor.execute("SELECT * FROM login WHERE username = %s AND password = %s ", (username, hashed_password))
             user = cursor.fetchall()
 
             if user:
                 session['username'] = username
-                session['userType'] = user_type
+                session['userType'] = user[0]['level']
                 session['user_data'] = user
-                if user_type == 'manager':
+                print(user[0]['level'])
+                if user[0]['level'] == 'manager':
+                    flash('Login successful! Welcome, Manager.', 'success')
                     return redirect(url_for('manager'))
-                elif user_type == 'staff':
+                elif user[0]['level'] == 'staff':
+                    flash('Login successful! Welcome, Staff.', 'success')
                     return redirect(url_for('staff'))
             else:
-                flash('Invalid username or password')
+                flash('Invalid username or password!', 'error')
 
         finally:
             cursor.close()
             db.close()  # Tutup koneksi setelah operasi
     return redirect(url_for('halamanlogin'))
-
