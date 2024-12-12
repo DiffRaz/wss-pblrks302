@@ -21,6 +21,7 @@ app.secret_key = secrets.token_hex(16)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
 # Class untuk koneksi database
+# Class untuk koneksi database
 class DatabaseConnection:
     def __init__(self, user_type):
         self.user_type = user_type
@@ -45,6 +46,7 @@ class DatabaseConnection:
             raise ValueError("User type tidak valid untuk koneksi database")
 
 # Class untuk manajemen session pengguna
+# Class untuk manajemen session pengguna
 class UserSession:
     def __init__(self):
         self.user_data = session.get('user_data')
@@ -61,6 +63,32 @@ class UserSession:
 
     def clear_session(self):
         session.clear()
+
+
+# Class untuk operasi barang bagi manager
+class BarangManager:
+    def __init__(self, db_connection):
+        self.db_connection = db_connection
+
+    def list_barang(self):
+        return list_data_sementara()
+
+    def accept_barang(self, id_barang):
+        return asep(id_barang)
+
+    def hapus_barang(self, id_barang):
+        return hapus(id_barang)
+
+# Class untuk operasi barang bagi staff
+class BarangStaff:
+    def __init__(self, db_connection):
+        self.db_connection = db_connection
+
+    def list_barang(self):
+        return list_barang_staff()
+
+    def hapus_barang(self, id_barang):
+        return hapuus(id_barang)
 
 # Routes
 @app.route('/')
