@@ -22,7 +22,7 @@ class DatabaseConnection:
         self.user_type = user_type
 
     def get_connection(self):
-        """Membuka koneksi database berdasarkan jenis pengguna"""
+        """membuka koneksi database berdasarkan jenis pengguna"""
         if self.user_type == "manager":
             return mysql.connector.connect(
                 host='localhost',
