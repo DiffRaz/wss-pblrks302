@@ -12,9 +12,13 @@ from hapus2 import hapuus
 from userlist import return_user_list, total_user_list_data, remove_selected_user, tampil_profile
 from edit_profile import edit_profil
 import hashlib
+from datetime import timedelta
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(16)
+
+# Mengatur waktu kedaluwarsa sesi menjadi 30 menit
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=30)
 
 # Class untuk koneksi database
 class DatabaseConnection:
@@ -58,41 +62,11 @@ class UserSession:
     def clear_session(self):
         session.clear()
 
-# Class untuk operasi barang bagi manager
-class BarangManager:
-    def __init__(self, db_connection):
-        self.db_connection = db_connection
-
-    def list_barang(self):
-        return list_data_sementara()
-
-    def accept_barang(self, id_barang):
-        return asep(id_barang)
-
-    def hapus_barang(self, id_barang):
-        return hapus(id_barang)
-
-# Class untuk operasi barang bagi staff
-class BarangStaff:
-    def __init__(self, db_connection):
-        self.db_connection = db_connection
-
-    def list_barang(self):
-        return list_barang_staff()
-
-    def hapus_barang(self, id_barang):
-        return hapuus(id_barang)
-
 # Routes
 @app.route('/')
 def sign_in():
     UserSession().clear_session()
     return render_template("sign_in.html")
-
-@app.route('/halamanlogin')
-def halamanlogin():
-    UserSession().clear_session()
-    return render_template("login.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login_route():
