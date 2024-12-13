@@ -1,6 +1,7 @@
 from flask import request, redirect, url_for, flash, session
 import mysql.connector
 import hashlib
+import html
 
 # Database connection
 db = mysql.connector.connect(
@@ -13,8 +14,8 @@ db = mysql.connector.connect(
 def login():
     session.clear()
     if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+        username = html.escape(request.form.get('username'))
+        password = html.escape(request.form.get('password'))
         
 
         if not username or not password :
