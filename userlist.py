@@ -15,7 +15,6 @@ def total_user_list_data():
         count_query = "SELECT COUNT(*) FROM pbl302.login"
         cursor.execute(count_query)
         total_data = cursor.fetchall()[0][0]
-        print(total_data)
         return total_data
     finally:
         cursor.close()

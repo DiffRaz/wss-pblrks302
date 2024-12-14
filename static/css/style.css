@@ -449,3 +449,19 @@ input {
 .add-btn:hover {
   background-color: #162546;
 }
+
+.passchange-btn {
+  background-color: #233B6E;
+  color: #fff;
+  position: flex;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-weight: Bold;
+}
+
+.passchange-btn:hover {
+  background-color: #162546;
+}

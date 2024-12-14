@@ -42,7 +42,6 @@ def login():
                 session['username'] = username
                 session['userType'] = user[0]['level']
                 session['user_data'] = user
-                print(user[0]['level'])
                 if user[0]['level'] == 'manager':
                     flash('Login successful! Welcome, Manager.', 'success')
                     return redirect(url_for('manager'))
