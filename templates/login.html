@@ -41,41 +41,47 @@
     </script>
 </body>
 {% with messages = get_flashed_messages() %}
-    {% for message in messages %}
-        {% if message == "Username, password are required!" %}
+    {% for message, category in messages %}
+        {% if category == "error1" %}
         <script>
             Swal.fire({
             title: 'GAGAL!',
-            text: 'KOK GA DIISI?',
+            text: '{{message}}',
             icon: 'error',
             timer: 2000,
             showCancelButton: false,
             showConfirmButton: false
-            });
+            }).then(() => {
+            window.location.href = "{{ url_for('login') }}"; // Redirect to manager dashboard after success
+          });
         </script>
         {% endif %}
-        {% if message == "Login successful! Welcome, Manager." %}
+        {% if category == "success2" %}
         <script>
             Swal.fire({
             title: 'BERHASIL',
-            text: 'Login successful! Welcome, Manager',
+            text: '{{message}}',
             icon: 'success',
             timer: 2000,
             showCancelButton: false,
             showConfirmButton: false
-            });
+            }).then(() => {
+            window.location.href = "{{ url_for('manager') }}"; // Redirect to manager dashboard after success
+          });
         </script>
         {% endif %}
-        {% if message == "Login successful! Welcome, Staff." %}
+        {% if category == "success1" %}
         <script>
             Swal.fire({
             title: 'BERHASIL',
-            text: 'Login successful! Welcome, Staff',
+            text: '{{message}}',
             icon: 'success',
             timer: 2000,
             showCancelButton: false,
             showConfirmButton: false
-            });
+            }).then(() => {
+            window.location.href = "{{ url_for('staff') }}"; // Redirect to manager dashboard after success
+          });
         </script>
         {% endif %}
         {% if message == "User level not recognized." %}
@@ -87,19 +93,23 @@
             timer: 2000,
             showCancelButton: false,
             showConfirmButton: false
-            });
+            }).then(() => {
+            window.location.href = "{{ url_for('login') }}"; // Redirect to manager dashboard after success
+          });
         </script>
         {% endif %}
-        {% if message == "Invalid username or password!" %}
+        {% if category == "error2" %}
         <script>
             Swal.fire({
             title: 'GAGAL!',
-            text: 'KAYAKNYA USERNAME ATAU PASSWORDNYA SALAH',
+            text: '{{message}}',
             icon: 'error',
             timer: 2000,
             showCancelButton: false,
             showConfirmButton: false
-            });
+            }).then(() => {
+            window.location.href = "{{ url_for('login') }}"; // Redirect to manager dashboard after success
+          });
         </script>
         {% endif %}
     {% endfor %}

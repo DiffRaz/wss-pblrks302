@@ -22,8 +22,8 @@ def tambah_usr():
             # Database connection using the 'login' user for the initial check
             db = mysql.connector.connect(
                 host='localhost',
-                user='login',  # Use 'login' user
-                password='2c8b5C]Z*Na1o*VQ',  # Specified password
+                user='root',  # Use 'login' user
+                password='',  # Specified password
                 database='pbl302'
             )
 
@@ -42,8 +42,8 @@ def tambah_usr():
 
             db = mysql.connector.connect(
                 host='localhost',
-                user='manager',  # Use 'manager' user for insertion
-                password='Gc.DGPYv44K)5Zb]',  # Specified password
+                user='root',  # Use 'manager' user for insertion
+                password='',  # Specified password
                 database='pbl302'
             )
 

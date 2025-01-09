@@ -5,10 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Warehouse Storage System</title>
   <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png') }}">
-  <!-- Linking Google Font Link For Icons -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert script -->
 </head>
 <body>
     <div class="content">
@@ -90,5 +88,36 @@
       </div>
     </div>
   </aside>
+
+  <script>
+    // Display SweetAlert for Flash Messages
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {% if category == 'success' %}
+          Swal.fire({
+            title: 'Success!',
+            text: '{{ message }}',
+            icon: 'success',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+          }).then(() => {
+            window.location.href = "{{ url_for('manager') }}"; // Redirect to manager dashboard after success
+          });
+        {% elif category == 'error' %}
+          Swal.fire({
+            title: 'Error!',
+            text: '{{ message }}',
+            icon: 'error',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+          });
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </script>
 </body>
 </html>

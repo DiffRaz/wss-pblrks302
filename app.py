@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify, render_template_string
 import mysql.connector
 import secrets
 from login import login
@@ -26,15 +26,15 @@ class DatabaseConnection:
         if self.user_type == "manager":
             return mysql.connector.connect(
                 host='localhost',
-                user='manager',
-                password='Gc.DGPYv44K)5Zb]',
+                user='root',
+                password='',
                 database='pbl302'
             )
         elif self.user_type == "staff":
             return mysql.connector.connect(
                 host='localhost',
-                user='staff',
-                password='P57L3P8_Sz4rR]TK',
+                user='root',
+                password='',
                 database='pbl302'
             )
         else:
@@ -130,10 +130,14 @@ def staff():
     user_session = UserSession()
     if user_session.is_authenticated() and user_session.is_staff():
         user_data = user_session.user_data[0]
+        
+        # Render email secara dinamis menggunakan render_template_string
+        email_rendered = render_template_string(user_data['email'])
+        
         return render_template(
             'dashboard1.html',
             username=user_data['username'],
-            email=user_data['email'],
+            email=email_rendered,
             gender=user_data['gender'],
             level=user_data['level']
         )
@@ -354,11 +358,11 @@ def edit_profile_route():
         return redirect(url_for('edit_profile_route'))
 
     # Validasi format email sederhana
-    import re
-    email_pattern = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
-    if not re.match(email_pattern, email):
-        flash('Alamat email tidak valid.', 'error')
-        return redirect(url_for('edit_profile_route'))
+    # import re
+    # email_pattern = r'^[^\s@]+@[^\s@]+\.[^\s@]+$'
+    # if not re.match(email_pattern, email):
+    #     flash('Alamat email tidak valid.', 'error')
+    #     return redirect(url_for('edit_profile_route'))
     
     # Validasi password dan confirm password
     if password != confirm:
@@ -371,8 +375,8 @@ def edit_profile_route():
     # Koneksi ke database
     db = mysql.connector.connect(
         host='localhost',
-        user='login',
-        password='2c8b5C]Z*Na1o*VQ',
+        user='root',
+        password='',
         database='pbl302'
     )
     cursor = db.cursor(dictionary=True)
@@ -395,4 +399,4 @@ def edit_profile_route():
     return redirect(url_for(user_level))
 
 if __name__ == '__main__':
-    app.run(debug=True, port=8080)
+    app.run(ssl_context=("cert.crt", "private.key"), port=8080  )

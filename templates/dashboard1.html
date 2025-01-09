@@ -89,5 +89,36 @@
       </div>
     </div>
   </aside>
+  
+  <script>
+    // Display SweetAlert for Flash Messages
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        {% if category == 'success' %}
+          Swal.fire({
+            title: 'Success!',
+            text: '{{ message }}',
+            icon: 'success',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+          }).then(() => {
+            window.location.href = "{{ url_for('staff') }}"; // Redirect to manager dashboard after success
+          });
+        {% elif category == 'error' %}
+          Swal.fire({
+            title: 'Error!',
+            text: '{{ message }}',
+            icon: 'error',
+            timer: 2000,
+            showCancelButton: false,
+            showConfirmButton: false
+          });
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+    {% endwith %}
+  </script>
 </body>
 </html>

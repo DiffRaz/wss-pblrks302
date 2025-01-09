@@ -9,8 +9,8 @@ import hashlib
 # Database connection
 db = mysql.connector.connect(
     host='localhost',
-    user='login',
-    password='2c8b5C]Z*Na1o*VQ',
+    user='root',
+    password='',
     database='pbl302'
 )
 
@@ -44,8 +44,10 @@ def edit_profil():
                 (email, hashed_password, date, iduser)
             )
             db.commit()  # Simpan perubahan ke database
+            flash('Profile updated successfully!', 'success')
         except mysql.connector.Error as err:
             print(f"Error: {err}")
+            flash('An error occurred while updating the profile. Please try again.', 'error')
         finally:
             cursor.close()
             db.close()  # Tutup koneksi setelah operasi

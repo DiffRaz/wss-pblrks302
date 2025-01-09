@@ -6,8 +6,8 @@ import html
 # Database connection
 db = mysql.connector.connect(
     host='localhost',
-    user='login',
-    password='2c8b5C]Z*Na1o*VQ',
+    user='root',
+    password='',
     database='pbl302'
 )
 
@@ -19,7 +19,7 @@ def login():
         
 
         if not username or not password :
-            flash('Username and password are required!', 'error')
+            flash('Username and password are required!', 'error1')
             return redirect(url_for('halamanlogin'))
 
         # Hash the password using md5 for comparison
@@ -29,8 +29,8 @@ def login():
             # Buka koneksi baru
             db = mysql.connector.connect(
                 host='localhost',
-                user='login',
-                password='2c8b5C]Z*Na1o*VQ',
+                user='root',
+                password='',
                 database='pbl302'
             )
             cursor = db.cursor(dictionary=True)
@@ -43,13 +43,13 @@ def login():
                 session['userType'] = user[0]['level']
                 session['user_data'] = user
                 if user[0]['level'] == 'manager':
-                    flash('Login successful! Welcome, Manager.', 'success')
+                    flash('Login successful! Welcome, Manager.', 'success2')
                     return redirect(url_for('manager'))
                 elif user[0]['level'] == 'staff':
-                    flash('Login successful! Welcome, Staff.', 'success')
+                    flash('Login successful! Welcome, Staff.', 'success1')
                     return redirect(url_for('staff'))
             else:
-                flash('Invalid username or password!', 'error')
+                flash('Invalid username or password!', 'error2')
 
         finally:
             cursor.close()

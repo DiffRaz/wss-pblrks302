@@ -6,8 +6,8 @@ import mysql.connector
 def get_db_connection():
     return mysql.connector.connect(
         host='localhost',
-        user='manager',
-        password='Gc.DGPYv44K)5Zb]',
+        user='root',
+        password='',
         database='pbl302'
     )
 
