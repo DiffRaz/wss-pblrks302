@@ -22,8 +22,8 @@ def tambah_usr():
             # Database connection using the 'login' user for the initial check
             db = mysql.connector.connect(
                 host='localhost',
-                user='root',  # Use 'login' user
-                password='',  # Specified password
+                user='login',  # Use 'login' user
+                password='2c8b5C]Z*Na1o*VQ',  # Specified password
                 database='pbl302'
             )
 
@@ -42,15 +42,15 @@ def tambah_usr():
 
             db = mysql.connector.connect(
                 host='localhost',
-                user='root',  # Use 'manager' user for insertion
-                password='',  # Specified password
+                user='manager',  # Use 'manager' user for insertion
+                password='Gc.DGPYv44K)5Zb]',  # Specified password
                 database='pbl302'
             )
 
             cursor = db.cursor()
 
             # If username doesn't exist, proceed with inserting the new user
-            hashed_password = hashlib.md5(password.encode()).hexdigest()
+            hashed_password = hashlib.sha3_512(password.encode()).hexdigest()
 
             cursor.execute(
                 "INSERT INTO login (username, email, password, date, gender, level) VALUES (%s, %s, %s, %s, %s, %s)", 

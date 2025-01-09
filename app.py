@@ -26,15 +26,15 @@ class DatabaseConnection:
         if self.user_type == "manager":
             return mysql.connector.connect(
                 host='localhost',
-                user='root',
-                password='',
+                user='manager',
+                password='Gc.DGPYv44K)5Zb]',
                 database='pbl302'
             )
         elif self.user_type == "staff":
             return mysql.connector.connect(
                 host='localhost',
-                user='root',
-                password='',
+                user='staff',
+                password='P57L3P8_Sz4rR]TK',
                 database='pbl302'
             )
         else:
@@ -370,13 +370,13 @@ def edit_profile_route():
         return redirect(url_for('edit_profile_route'))
     
     # Enkripsi password
-    hashed_password = hashlib.md5(password.encode()).hexdigest()
+    hashed_password = hashlib.sha3_512(password.encode()).hexdigest()
 
     # Koneksi ke database
     db = mysql.connector.connect(
         host='localhost',
-        user='root',
-        password='',
+        user='login',
+        password='2c8b5C]Z*Na1o*VQ',
         database='pbl302'
     )
     cursor = db.cursor(dictionary=True)
@@ -399,4 +399,4 @@ def edit_profile_route():
     return redirect(url_for(user_level))
 
 if __name__ == '__main__':
-    app.run(ssl_context=("cert.crt", "private.key"), port=8080  )
+    app.run(ssl_context=("wssprivatecert.crt", "wssprivate.key"), port=443, host='0.0.0.0')

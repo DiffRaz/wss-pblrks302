@@ -6,8 +6,8 @@ import html
 # Database connection
 db = mysql.connector.connect(
     host='localhost',
-    user='root',
-    password='',
+    user='login',
+    password='2c8b5C]Z*Na1o*VQ',
     database='pbl302'
 )
 
@@ -22,15 +22,15 @@ def login():
             flash('Username and password are required!', 'error1')
             return redirect(url_for('halamanlogin'))
 
-        # Hash the password using md5 for comparison
-        hashed_password = hashlib.md5(password.encode()).hexdigest()
+        # Hash the password using sha3_512 for comparison
+        hashed_password = hashlib.sha3_512(password.encode()).hexdigest()
 
         try:
             # Buka koneksi baru
             db = mysql.connector.connect(
                 host='localhost',
-                user='root',
-                password='',
+                user='login',
+                password='2c8b5C]Z*Na1o*VQ',
                 database='pbl302'
             )
             cursor = db.cursor(dictionary=True)

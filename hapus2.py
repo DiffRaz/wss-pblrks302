@@ -4,7 +4,7 @@ import mysql.connector
 
 def hapuus(id):
     try:
-        db = mysql.connector.connect(host='localhost', user='root', password='', database='pbl302')
+        db = mysql.connector.connect(host='localhost', user='staff', password='P57L3P8_Sz4rR]TK', database='pbl302')
         cursor = db.cursor()
 
         # Hapus data dari tabel sementara

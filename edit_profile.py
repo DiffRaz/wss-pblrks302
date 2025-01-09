@@ -9,8 +9,8 @@ import hashlib
 # Database connection
 db = mysql.connector.connect(
     host='localhost',
-    user='root',
-    password='',
+    user='login',
+    password='2c8b5C]Z*Na1o*VQ',
     database='pbl302'
 )
 
@@ -27,7 +27,7 @@ def edit_profil():
         if not email or not password or not date :
             return redirect(url_for('edit_profil'))
         
-        hashed_password = hashlib.md5(password.encode()).hexdigest()
+        hashed_password = hashlib.sha3_512(password.encode()).hexdigest()
 
         try:
             # Buka koneksi baru
